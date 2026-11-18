@@ -6,7 +6,8 @@ public class ThirdPersonCamera : MonoBehaviour
     [SerializeField] private Transform alvo;
 
     [Header("Posição da câmera")]
-    [SerializeField] private Vector3 deslocamento =
+    [SerializeField]
+    private Vector3 deslocamento =
         new Vector3(0f, 2f, -4f);
 
     [Header("Suavização")]
@@ -46,3 +47,4 @@ public class ThirdPersonCamera : MonoBehaviour
         transform.LookAt(pontoDeOlhar);
     }
 }
+

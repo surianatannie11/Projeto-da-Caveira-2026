@@ -37,9 +37,9 @@ public class SkeletonPlayer : MonoBehaviour
     private CharacterController controller;
 
 
-    //---------------------------------------------------
-    //VARIAVEIS GLOBAIS
-    //---------------------------------------------------
+
+
+    //Variáveis globais - estados do personagem
     private bool estaMovendo;
     private bool estaMovendoParaTras;
     private bool estaCorrendo;
@@ -47,17 +47,12 @@ public class SkeletonPlayer : MonoBehaviour
     private bool estaCaindo;
     private bool estaPulando;
 
-    //---------------------------------------------------
-    // VARIAVEIS GLO VELOVIDADES
-    //---------------------------------------------------
+    //Variáveis globais - velocidades
     private float velocidadeAtual;
     private float velocidadeVertical;
 
-    //---------------------------------------------------
-    // VARIAVEIS GLOBAIS DA MOEDA
-    //---------------------------------------------------
+    //Variáveis globais - moeda
     private int moedasColetadas = 0;
-
 
     void Start()
     {
@@ -67,10 +62,16 @@ public class SkeletonPlayer : MonoBehaviour
 
     public void ColetarMoeda()
     {
-       moedasColetadas++;
+        moedasColetadas++;
 
-       Debug.Log("Moedas Coletadas: " + moedasColetadas);
-    } 
+        Debug.Log("Moedas coletadas: " + moedasColetadas);
+        if (moedasColetadas >= 8)
+        {
+            Debug.Log("Voce coletou todas as moedas");
+
+        }
+    }
+
 
     void Movimento()
     {
@@ -82,8 +83,6 @@ public class SkeletonPlayer : MonoBehaviour
 
         estaMovendoParaTras =
             pressionandoS && !pressionandoW;
-
-        
     }
 
     void Corrida()
@@ -103,7 +102,6 @@ public class SkeletonPlayer : MonoBehaviour
         {
             animator.SetTrigger("Attack");
         }
-
     }
 
     void Rotacao()
@@ -127,9 +125,9 @@ public class SkeletonPlayer : MonoBehaviour
         );
     }
 
-    void VeloHorizontal()
+    void VelocidadeHorizontal()
     {
-     velocidadeAtual = 0f;
+        velocidadeAtual = 0f;
 
         if (estaMovendo)
         {
@@ -146,7 +144,6 @@ public class SkeletonPlayer : MonoBehaviour
         {
             velocidadeAtual = -velocidadeAndarTras;
         }
-
     }
 
     void Gravidade()
@@ -157,7 +154,6 @@ public class SkeletonPlayer : MonoBehaviour
         {
             velocidadeVertical = -2f;
         }
-
     }
 
     void Pulo()
@@ -173,7 +169,6 @@ public class SkeletonPlayer : MonoBehaviour
 
         velocidadeVertical +=
             gravidade * Time.deltaTime;
-
     }
 
     void MovimentoFinal()
@@ -200,23 +195,19 @@ public class SkeletonPlayer : MonoBehaviour
         estaCaindo =
             !controller.isGrounded &&
             velocidadeVertical < -0.1f;
-
     }
 
     void DeteccaoPulo()
     {
-
         // A caveira está pulando enquanto estiver no ar
         // e sua velocidade vertical estiver apontando para cima.
         estaPulando =
             !controller.isGrounded &&
             velocidadeVertical > 0.1f;
-
     }
 
     void Animacoes()
     {
-
         animator.SetBool(
             "IsMoving",
             estaMovendo
@@ -241,66 +232,84 @@ public class SkeletonPlayer : MonoBehaviour
             "IsJumping",
             estaPulando
         );
-      
     }
-
 
     void Update()
     {
-       // --------------------------------------------------
-       // MOVIMENTO PARA FRENTE E PARA TRÁS
-       // --------------------------------------------------
-          Movimento();
-
-       // --------------------------------------------------
-       // CORRIDA
-       // --------------------------------------------------
-          Corrida();
-
-       // --------------------------------------------------
-       // ATAQUE
-       // --------------------------------------------------
-          Ataque();
-
-       // --------------------------------------------------
-       // ROTAÇÃO
-       // --------------------------------------------------
-          Rotacao();
-
-       // --------------------------------------------------
-       // VELOCIDADE HORIZONTAL
-       // --------------------------------------------------
-          VeloHorizontal();
-
-      // --------------------------------------------------
-      // GRAVIDADE
-      // --------------------------------------------------
-          Gravidade();
-        
-       // --------------------------------------------------
-       // PULO
-       // --------------------------------------------------
-          Pulo();
-
-       // --------------------------------------------------
-       // MOVIMENTO FINAL
-       // --------------------------------------------------
-          MovimentoFinal();
-
-       // --------------------------------------------------
-       // DETECÇÃO DE QUEDA
-       // --------------------------------------------------
-          DeteccaoQueda();
+        // --------------------------------------------------
+        // MOVIMENTO PARA FRENTE E PARA TRÁS
+        // --------------------------------------------------
+        Movimento();
 
 
-       // --------------------------------------------------
-       // DETECÇÃO DE PULO
-       // --------------------------------------------------
-          DeteccaoPulo();
+
+        // --------------------------------------------------
+        // CORRIDA
+        // --------------------------------------------------
+        Corrida();
+
+
+
+        // --------------------------------------------------
+        // ATAQUE
+        // --------------------------------------------------
+        Ataque();
+
+
+        // --------------------------------------------------
+        // ROTAÇÃO
+        // --------------------------------------------------
+        Rotacao();
+
+
+
+        // --------------------------------------------------
+        // VELOCIDADE HORIZONTAL
+        // --------------------------------------------------
+        VelocidadeHorizontal();
+
+
+
+        // --------------------------------------------------
+        // GRAVIDADE
+        // --------------------------------------------------
+        Gravidade();
+
+
+
+        // --------------------------------------------------
+        // PULO
+        // --------------------------------------------------
+        Pulo();
+
+
+
+        // --------------------------------------------------
+        // MOVIMENTO FINAL
+        // --------------------------------------------------
+        MovimentoFinal();
+
+
+
+        // --------------------------------------------------
+        // DETECÇÃO DE QUEDA
+        // --------------------------------------------------
+        DeteccaoQueda();
+
+
+
+        // --------------------------------------------------
+        // DETECÇÃO DE PULO
+        // --------------------------------------------------
+        DeteccaoPulo();
+
+
 
         // --------------------------------------------------
         // ANIMAÇÕES
         // --------------------------------------------------
         Animacoes();
+
     }
 }
+

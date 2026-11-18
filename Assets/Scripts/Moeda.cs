@@ -1,11 +1,12 @@
+
 using UnityEngine;
 
 public class Moeda : MonoBehaviour
-{ 
-    private void OnTiggerEnter(Collider outro)
+{
+    private void OnTriggerEnter(Collider outro)
     {
         SkeletonPlayer jogador =
-          outro.GetComponent<SkeletonPlayer>();
+            outro.GetComponent<SkeletonPlayer>();
 
         if (jogador != null)
         {
@@ -15,3 +16,5 @@ public class Moeda : MonoBehaviour
         }
     }
 }
+
+
